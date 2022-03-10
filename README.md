@@ -1,6 +1,4 @@
-# Node.js Weight Tracker
-
-![Demo](docs/build-weight-tracker-app-demo.gif)
+# Node.js Weight Tracker connect to servers
 
 This sample application demonstrates the following technologies.
 
@@ -13,18 +11,36 @@ This sample application demonstrates the following technologies.
 
 **Requirements:**
 
+* server connection with sshkey, ip addres amd userName
 * [Node.js](https://nodejs.org/) 14.x
-* [PostgreSQL](https://www.postgresql.org/) (can be installed locally using Docker)
+* [PostgreSQL](https://www.postgresql.org/) (can be installed on server using Docker)
 * [Free Okta developer account](https://developer.okta.com/) for account registration, login
+* [pm2] (https://pm2.keymetrics.io/)
+## Install and Configuration - web application
 
-## Install and Configuration
+1. connect to the server ubuntu with your sshkey using userName@ipadress 
+1. Clone source files from Github to the server
+1. Run `npm install` to install dependencies (need to be installed on the server)
+1. create with [nano] file for your [.env] -
+1.  inside your .env file you need to add PostgreSQL connection - using PostgreSQL ip adress
+1.  change your HOST_URL adding the app external ip to connect
+1.  Create a [free Okta developer account](https://developer.okta.com/) and add a web application for this app
+1.  Copy `.env.sample` to `.env` and change the `OKTA_*` values to your application , inerst your okta client id + client secret .
+             [do not forget to add .gitignore file for your .env && node_modules]
+1. install and update [node.js --v 14] on your server 
+1. install pm2 - to stay connected to the server.
 
-1. Clone or download source files
-1. Run `npm install` to install dependencies
-1. If you don't already have PostgreSQL, set up using Docker
-1. Create a [free Okta developer account](https://developer.okta.com/) and add a web application for this app
-1. Copy `.env.sample` to `.env` and change the `OKTA_*` values to your application
-1. Initialize the PostgreSQL database by running `npm run initdb`
-1. Run `npm run dev` to start Node.js
+
+## Install and Configuration - data base
+1. connect to the server ubuntu with your sshkey using userName@ipadress 
+2. install docker and PostgreSQL on your data base server.
+3. create docker container using [--restart unless-stopped] command - for the server to stay connected 
+4. you can run [docker ps] - to see that you actually connected to PostgreSQL.
+
+## back to your web server
+6. Initialize the PostgreSQL database by running `npm run initdb` - ## on your web server
+7. Run `npm run dev` to start Node.js 
+ 
 
 The associated blog post goes into more detail on how to set up PostgreSQL with Docker and how to configure your Okta account.
+1. If you don't already have PostgreSQL, set up using Docker
